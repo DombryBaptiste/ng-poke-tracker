@@ -1,0 +1,20 @@
+{
+    "username" : "bat",
+    "userId" : "1",
+    "pokemon" : [
+        {
+            "id" : 1,
+            "height": 1,
+            "name": "bulbasaur",
+            "maleSprite" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/1.png",
+            "femaleSprite" : null
+        },
+         {
+            "id" : 2,
+            "height": 1,
+            "name": "ivysaur",
+            "maleSprite" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/2.png",
+            "femaleSprite" : null
+        }
+    ]
+}
