@@ -1,0 +1,9 @@
+.image
+{
+
+}
+
+.image:hover{
+  filter: brightness(0) grayscale(100%);
+}
+
