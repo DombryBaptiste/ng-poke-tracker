@@ -1,2 +1,13 @@
-<img [src]="pokemon.maleSprite" class="image">
+<div class="pokemon">
+    <img 
+    [ngClass]="{'showed': hasPokemonUser(pokemon.id), 'hidden': !hasPokemonUser(pokemon.id)}" 
+    [src]="pokemon.maleSprite"
+    (mouseenter)="showPokemonName()"
+    (mouseleave)="hidePokemonName()"
+    (click)="clickInterationPokemon(pokemon.id)"
+    >
+    <span *ngIf="showName" class="name">{{ pokemon.name }}</span>
+</div>
+
+    
   

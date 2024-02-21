@@ -1,9 +1,29 @@
-.image
+.showed
 {
-
+  filter: brightness(100%);
 }
 
-.image:hover{
-  filter: brightness(0) grayscale(100%);
+.hidden
+{
+  filter: brightness(0);
+}
+
+.name
+{
+  position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    z-index: 10;
+}
+
+.pokemon
+{
+  position: relative;
+  display: flex;
 }
 

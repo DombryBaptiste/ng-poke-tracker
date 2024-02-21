@@ -3,6 +3,7 @@ import { Pokemon } from '../../Entity/Pokemon';
 import { PokemonService } from '../../Services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { PokemonComponent } from '../pokemon/pokemon.component';
+import { UserData } from '../../Entity/UserData';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -13,6 +14,7 @@ import { PokemonComponent } from '../pokemon/pokemon.component';
 })
 export class ListPokemonComponent implements OnInit{
   @Input() generationId: number;
+  @Input() user: UserData;
 
   pokemons: Pokemon[];
   pokemonsWithoutMale: Pokemon[];
