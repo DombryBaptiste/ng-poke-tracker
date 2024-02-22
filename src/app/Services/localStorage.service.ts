@@ -6,23 +6,40 @@ import { Inject, Injectable } from "@angular/core";
 })
 
 export class LocalStorageService {
+
+    localStorage: Storage | undefined;
+
     constructor(@Inject(DOCUMENT) document: Document) {
-        const localStorage = document.defaultView?.localStorage;
+        this.localStorage = document.defaultView?.localStorage;
     }
 
     public saveData(key: string, value: string) {
-        localStorage.setItem(key, value);
+        if(this.localStorage)
+        {
+            this.localStorage.setItem(key, value);
+        }
     }
 
     public getData(key: string) {
-        return localStorage.getItem(key);
+        if(this.localStorage)
+        {
+            return this.localStorage.getItem(key);
+        }
+        return null;
     }
 
     public removeData(key: string) {
-        return localStorage.removeItem(key);
+        if(this.localStorage)
+        {
+            return localStorage.removeItem(key);
+        }
+        return null;
     }
 
     public clearData() {
-        localStorage.clear();
+        if(this.localStorage)
+        {
+            localStorage.clear();
+        }
     }
 }
