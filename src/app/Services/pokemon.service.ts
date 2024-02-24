@@ -8,14 +8,21 @@ import { LocalStorageService } from "./localStorage.service";
   providedIn: "root",
 })
 export class PokemonService {
-  private readonly generationList: number[] = [1, 2];
+  private readonly pokemonIdInGen8_9 = [810, 1025];
   private readonly InitPokemonRange = {
     startId: 1,
-    endId: 252,
+    endId: 649,
   };
   private readonly GenerationRange: { [key: number]: number[] } = {
     1: [1, 151],
-    2: [152, 252],
+    2: [152, 251],
+    3: [252, 386],
+    4: [387, 493],
+    5: [494, 649],
+    6: [650, 721],
+    7: [722, 809],
+    8: [810, 905],
+    9: [906, 1025]
   };
   private readonly generationWithNoFemaleSprite: string[] = [
     "generation-i",
@@ -26,6 +33,11 @@ export class PokemonService {
     "generation-i",
     "generation-ii",
   ];
+  private readonly gen3FormsId: number[] = [10001, 10002, 10003];
+  private readonly gen4FormsId: number[] = [10034, 10035, 10004, 10005, 10039, 10040, 10008, 10009, 10010, 10011, 10012, 10006];
+  private readonly gen5FormsId: number[] = [100068, 100069, 100070, 100071, 10072, 10073, 10016, 10019, 10020, 10021, 10024];
+
+  private readonly pickachuCapId: number[] = []
 
   constructor(
     private http: HttpClient,
@@ -48,46 +60,18 @@ export class PokemonService {
       });
     }
 
-    //console.log(pokemonList);
-
     let pokemons: Pokemon[] = [];
-    if (id == 1) {
-      for (let i = 1; i <= 151; i++) {
-        pokemons.push(pokemonList[i]);
-      }
-    }
-    if (id == 2) {
-      for (let i = 152; i <= 251; i++) {
-        this.getPokemonById(i).subscribe((pkm) => {
-          pokemons.push(pkm);
-        });
-      }
-    }
-    if (id == 3) {
-      for (let i = 252; i <= 386; i++) {
-        this.getPokemonById(i).subscribe((pkm) => {
-          pokemons.push(pkm);
-        });
-      }
-    }
-    if (id == 4) {
-      for (let i = 387; i <= 493; i++) {
-        this.getPokemonById(i).subscribe((pkm) => {
-          pokemons.push(pkm);
-        });
-      }
+    let startPokemonId = this.GenerationRange[id][0];
+    let endPokemonId = this.GenerationRange[id][1];
+
+    for (let i = startPokemonId; i <= endPokemonId; i++)
+    {
+      pokemons.push(pokemonList[i]);
     }
     return pokemons;
   }
 
   getPokemonById(id: number): Observable<Pokemon> {
-    // let pokemon: Pokemon;
-    // this.http.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`).subscribe(
-    //     pkm => {
-    //         if(pkm.sprites["back-female"])
-    //         pokemon.name = pkm.name;
-    //     }
-    // );
     return this.http
       .get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .pipe(
@@ -95,8 +79,8 @@ export class PokemonService {
           id: data.id,
           height: data.height,
           name: data.name,
-          maleSprite: this.getSprite(data, "male", id),
-          femaleSprite: this.getSprite(data, "female", id),
+          maleSprite: this.getMaleSprite(data, id),
+          femaleSprite: this.getFemaleSprite(data, id),
         }))
       );
   }
@@ -145,7 +129,17 @@ export class PokemonService {
     }
     if (id >= 387 && id <= 493) {
       return "platinum";
-    } else {
+    }
+    if (id >= 494 && id <= 649) {
+      return "black-white";
+    }
+    if (id >= 650 && id <= 721) {
+      return "x-y";
+    }
+    if (id >= 722 && id <= 807) {
+      return "ultra-sun-ultra-moon";
+    }
+    else {
       return "";
     }
   }
@@ -155,26 +149,86 @@ export class PokemonService {
       this.getGenerationById(idPokemon)
     );
   }
+
   hasGenderDiff(data: any): boolean {
     return data.sprites.back_female != null;
   }
+
   hasTransparentSprite(idPokemon: number): boolean {
     return !this.generationWithNoTransparentSprite.includes(
       this.getGenerationById(idPokemon)
     );
   }
 
+  getMaleSprite(data: any, idPokemon: number)
+  {
+    if(this.hasOlderSprite(idPokemon))
+    {
+      if (this.hasTransparentSprite(idPokemon)) {
+        return data.sprites.versions
+        [this.getGenerationById(idPokemon)]
+        [this.getGameById(idPokemon)].front_default;
+      } else {
+        return data.sprites.versions
+        [this.getGenerationById(idPokemon)]
+        [this.getGameById(idPokemon)].front_transparent;
+      }
+    }
+    else {
+      return data.sprites.front_default;
+    }
+  }
+
+  getFemaleSprite(data: any, idPokemon: number)
+  {
+    if(this.hasFemaleSprite(idPokemon))
+    {
+      return data.sprites.versions
+      [this.getGenerationById(idPokemon)]
+      [this.getGameById(idPokemon)].front_female;
+    }
+    if (this.hasGenderDiff(data)) {
+      if (this.hasTransparentSprite(idPokemon)) {
+        return data.sprites.versions
+        [this.getGenerationById(idPokemon)]
+        [this.getGameById(idPokemon)].front_default;
+      } else {
+        return data.sprites.versions
+        [this.getGenerationById(idPokemon)]
+        [this.getGameById(idPokemon)].front_transparent;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  hasOlderSprite(idPokemon: number)
+  {
+    if(idPokemon >= this.pokemonIdInGen8_9[0] && idPokemon <= this.pokemonIdInGen8_9[1])
+      {
+        return false;
+      }
+      return true; 
+  }
+
   getSprite(data: any, genre: string, idPokemon: number) {
     if (genre == "male") {
-      if (this.hasTransparentSprite(idPokemon)) {
-        return data.sprites.versions[this.getGenerationById(idPokemon)][
-          this.getGameById(idPokemon)
-        ].front_default;
-      } else {
-        return data.sprites.versions[this.getGenerationById(idPokemon)][
-          this.getGameById(idPokemon)
-        ].front_transparent;
+      if(idPokemon >= this.pokemonIdInGen8_9[0] && idPokemon <= this.pokemonIdInGen8_9[1])
+      {
+        
       }
+      else {
+        if (this.hasTransparentSprite(idPokemon)) {
+          return data.sprites.versions[this.getGenerationById(idPokemon)][
+            this.getGameById(idPokemon)
+          ].front_default;
+        } else {
+          return data.sprites.versions[this.getGenerationById(idPokemon)][
+            this.getGameById(idPokemon)
+          ].front_transparent;
+        }
+      }
+      
     }
     if (genre == "female") {
       if (this.hasFemaleSprite(idPokemon)) {
