@@ -1,9 +1,11 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Pokemon } from '../../Entity/Pokemon';
 import { PokemonService } from '../../Services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { PokemonComponent } from '../pokemon/pokemon.component';
 import { UserData } from '../../Entity/UserData';
+import { LocalStorageService } from '../../Services/localStorage.service';
+import { PokemonOwnedService } from '../../Services/pokemonOwned.service';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -14,7 +16,8 @@ import { UserData } from '../../Entity/UserData';
 })
 export class ListPokemonComponent implements OnInit{
   @Input() generationId: number;
-  @Input() user: UserData;
+
+  showName: boolean = false;
 
   pokemons: Pokemon[];
   pokemonsWithoutMale: Pokemon[];
@@ -24,7 +27,6 @@ export class ListPokemonComponent implements OnInit{
   ngOnInit(): void
   {
     this.pokemons = this.pokemonService.getPokemonByGeneration(this.generationId);
-    this.pokemonsWithoutMale = this.pokemons.filter(p => p.femaleSprite != null); 
   }
 
 }

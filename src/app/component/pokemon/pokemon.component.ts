@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon } from '../../Entity/Pokemon';
 import { CommonModule } from '@angular/common';
-import { UserData } from '../../Entity/UserData';
+import { PokemonOwnedService } from '../../Services/pokemonOwned.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -10,16 +10,23 @@ import { UserData } from '../../Entity/UserData';
   templateUrl:"pokemon.component.html",
   styleUrl: "pokemon.component.css"
 })
-export class PokemonComponent {
+export class PokemonComponent implements OnInit{
   @Input() pokemon: Pokemon;
-  @Input() user: UserData;
 
   showName: boolean = false;
+  pokemonsOwned: Pokemon[];
+
+  constructor(private pokemonOwnedService: PokemonOwnedService) { }
   
+  ngOnInit(): void {
+    this.pokemonOwnedService.pokemonsOwned$.subscribe(pokemons => {
+      this.pokemonsOwned = pokemons;
+    });
+  }
 
   hasPokemonUser(id: number)
   {
-    const foundPokemon = this.user.pokemon.find((pkm: Pokemon) => pkm.id === id);
+    const foundPokemon = this.pokemonsOwned.find((pkm: Pokemon) => pkm.id === id);
     return foundPokemon;
   }
 
@@ -35,11 +42,12 @@ export class PokemonComponent {
   {
     if(this.hasPokemonUser(pokemonId))
     {
-      this.user.pokemon = this.user.pokemon.filter(pokemon => pokemon.id !== pokemonId);
+      this.pokemonsOwned = this.pokemonsOwned.filter(pokemon => pokemon.id !== pokemonId);
     }
     else
     {
-      this.user.pokemon.push(this.pokemon);
+      this.pokemonsOwned.push(this.pokemon);
     }
+    this.pokemonOwnedService.updatePokemonsOwned(this.pokemonsOwned)
   }
 }

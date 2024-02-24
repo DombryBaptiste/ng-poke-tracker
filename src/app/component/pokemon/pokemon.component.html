@@ -1,4 +1,4 @@
-<div class="pokemon">
+<div class="pokemon" *ngIf="pokemon">
     <img 
     [ngClass]="{'showed': hasPokemonUser(pokemon.id), 'hidden': !hasPokemonUser(pokemon.id)}" 
     [src]="pokemon.maleSprite"

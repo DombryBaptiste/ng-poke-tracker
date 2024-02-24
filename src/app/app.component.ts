@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './component/navbar/navbar.component';
-import { UserService } from './Services/user.service';
 import { UserData } from './Entity/UserData';
+import { PokemonService } from './Services/pokemon.service';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +15,10 @@ import { UserData } from './Entity/UserData';
 export class AppComponent implements OnInit{
 
   public user: UserData;
-  constructor(public userService: UserService) { }
+  constructor(public pokemonService: PokemonService) { }
 
   ngOnInit(): void {
-    this.userService.getUserInfoById(1).subscribe(user => {
-      this.user = user;
-      
-      console.log(user);
-    })
+    this.pokemonService.initPokemonLocalStorage();
   }
 
  }

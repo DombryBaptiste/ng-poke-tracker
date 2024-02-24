@@ -1,14 +1,15 @@
 <div class="container-liste">
     <div class="liste" *ngIf="pokemons">
-        <div *ngFor="let pokemon of pokemons">
-            <app-pokemon [pokemon]="pokemon" [user]="user"></app-pokemon>
-        </div>
-        
+        <app-pokemon *ngFor="let pokemon of pokemons" 
+            [pokemon]="pokemon"
+        >
+        </app-pokemon>
     </div>
     <hr>
-    <div class="liste" *ngIf="pokemons">
-        <div *ngFor="let pokemon of pokemonsWithoutMale">
-            <app-pokemon [pokemon]="pokemon" [user]="user"></app-pokemon>
-        </div>
+    <div class="liste" *ngIf="pokemonsWithoutMale">
+        <app-pokemon *ngFor="let pokemon of pokemonsWithoutMale" 
+            [pokemon]="pokemon"
+        >
+        </app-pokemon>
     </div>
 </div>
