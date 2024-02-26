@@ -1,18 +1,26 @@
-.container-liste
-{
-    margin: 30px;
-
+.container-liste {
+  margin: 30px;
+  display: flex;
+  justify-content: center;
 }
-.liste
-{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
+.liste {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  width: 85%;
+  justify-content: center; /* center or flex-start */
 }
 
-.image
-{
-    width: 50px;
-    height: 50px;
+.image {
+  width: 50px;
+  height: 50px;
+}
+.sub-list {
+  display: grid;
+  grid-template-columns: repeat(6, 3fr);
+  grid-template-rows: repeat(5, 3fr);
+  border: solid;
+  border-radius: 1rem;
 }

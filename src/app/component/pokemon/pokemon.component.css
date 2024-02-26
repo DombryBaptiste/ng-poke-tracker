@@ -1,33 +1,29 @@
-.showed
-{
+.showed {
   filter: brightness(100%);
 }
 
-.hidden
-{
+.hidden {
   filter: brightness(10%);
 }
 
-.showed, .hidden {
+.showed,
+.hidden {
   transition: filter 0.1s ease;
 }
 
-.name
-{
+.name {
   position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #000;
-    color: #fff;
-    padding: .5rem 1rem;
-    border-radius: 1rem;
-    z-index: 10;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  z-index: 10;
 }
 
-.pokemon
-{
+.pokemon {
   position: relative;
   display: flex;
 }
-

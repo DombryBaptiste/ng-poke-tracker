@@ -1,15 +1,24 @@
-<div class="container-liste">
-    <div class="liste" *ngIf="pokemons">
-        <app-pokemon *ngFor="let pokemon of pokemons" 
+<mat-tab-group>
+  <mat-tab [label]="'Male'">
+    <div class="container-liste">
+      <div class="liste" *ngIf="malePokemons">
+        <div class="sub-list" *ngFor="let sublist of malePokemonsSub">
+          <app-pokemon
+            *ngFor="let pokemon of sublist"
             [pokemon]="pokemon"
-        >
-        </app-pokemon>
+          ></app-pokemon>
+        </div>
+      </div>
     </div>
-    <hr>
-    <div class="liste" *ngIf="pokemonsWithoutMale">
-        <app-pokemon *ngFor="let pokemon of pokemonsWithoutMale" 
-            [pokemon]="pokemon"
-        >
-        </app-pokemon>
+  </mat-tab>
+  <mat-tab [label]="'Female'">
+    <div class="container-liste">
+      <div class="liste" *ngIf="femalePokemons">
+        <app-pokemon
+          *ngFor="let pokemon of femalePokemons"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
     </div>
-</div>
+  </mat-tab>
+</mat-tab-group>

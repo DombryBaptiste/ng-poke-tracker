@@ -1,19 +1,16 @@
-h1
-{
-    font-family: 'Pokemon Solid', sans-serif;
-    display: flex;
-    justify-content: center;
+h1 {
+  font-family: "Pokemon Solid", sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
-.onglets
-{
-    display: flex;
-    flex-direction: row;
-    gap: 5px
+.onglets {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
-.onglet
-{
-    font-size: 2em;
-    font-weight: bold;
+.onglet {
+  font-size: 2em;
+  font-weight: bold;
 }

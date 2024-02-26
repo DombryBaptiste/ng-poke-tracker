@@ -1,7 +1,8 @@
+import { Gender } from "../Enum/Gender";
+
 export class Pokemon {
-    id: number;
-    height: number;
-    name: string;
-    maleSprite: string;
-    femaleSprite: string;
+  id: number;
+  name: string;
+  gender: Gender;
+  sprite: string;
 }

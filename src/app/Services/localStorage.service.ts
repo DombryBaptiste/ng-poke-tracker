@@ -36,4 +36,14 @@ export class LocalStorageService {
       localStorage.clear();
     }
   }
+
+  public needInit()
+  {
+    if(this.getData("ListAllMalePokemon") == null || this.getData("pokemonOwned") == null)
+    {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
