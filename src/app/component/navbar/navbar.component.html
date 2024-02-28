@@ -16,7 +16,8 @@
     </button>
   </div>
   <div>
-    <button mat-menu-item>
+    <input type="file" (change)="importSave($event)" style="display: none;" #fileInput>
+    <button mat-menu-item (click)="fileInput.click()">
       <mat-icon>upload</mat-icon>
       <span>Import</span>
     </button>

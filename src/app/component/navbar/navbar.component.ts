@@ -18,7 +18,20 @@ export class NavbarComponent {
 
   exportSave()
   {
-    console.log("export")
     this.pokemonOwnedService.downloadPokemonOwnedAsJSON();
+  }
+
+  importSave(event: any) : void
+  {
+    const selectedFile = event.target.files[0];
+    console.log(selectedFile.type);
+    if (selectedFile && selectedFile.type == "application/json") {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const fileContent = reader.result as string;
+        this.pokemonOwnedService.updatePokemonsOwned(JSON.parse(fileContent));
+      };
+      reader.readAsText(selectedFile);
+    }
   }
 }
