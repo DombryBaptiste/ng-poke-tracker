@@ -3,12 +3,25 @@
     <mat-icon>menu</mat-icon>
   </button>
   <h1>PokéTracker</h1>
-  <button mat-icon-button>
+  <button mat-icon-button [mat-menu-trigger-for]="menu">
     <mat-icon>menu</mat-icon>
   </button>
 </div>
 
-
+<mat-menu #menu="matMenu" class="menu-container">
+  <div class="sub-menu">
+    <button mat-menu-item>
+      <mat-icon>download</mat-icon>
+      <span>Export</span>
+    </button>
+  </div>
+  <div>
+    <button mat-menu-item>
+      <mat-icon>upload</mat-icon>
+      <span>Import</span>
+    </button>
+  </div>
+</mat-menu>
 
 <mat-tab-group>
   <mat-tab label="Gen. 1">
