@@ -3,3 +3,20 @@
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.red-snackbar.mdc-snackbar .mdc-snackbar__surface {
+    background-color: #CF4130;
+    color: white;
+}
+
+.green-snackbar.mdc-snackbar .mdc-snackbar__surface {
+    background-color: #008A61;
+    color: white; 
+}
+
+.mdc-snackbar .mat-mdc-snack-bar-label[matSnackBarLabel] {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+}
+
