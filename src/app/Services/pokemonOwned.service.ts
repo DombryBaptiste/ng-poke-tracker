@@ -2,6 +2,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Pokemon } from "../Entity/Pokemon";
 import { LocalStorageService } from "./localStorage.service";
+import { saveAs } from "file-saver";
 
 @Injectable({
   providedIn: "root",
@@ -38,4 +39,13 @@ export class PokemonOwnedService {
     this.pokemonsOwnedSubject.next(updatedList);
     localStorage.setItem("pokemonOwned", JSON.stringify(updatedList));
   }
+
+  downloadPokemonOwnedAsJSON(): void {
+    const pokemonsOwned = this.getPokemonsOwned();
+    const json = JSON.stringify(pokemonsOwned);
+    const blob = new Blob([json], { type: "application/json" });
+    const date = new Date();
+    saveAs(blob, `pokemonOwned${date.toLocaleDateString()}.json`);
+  }
+  
 }

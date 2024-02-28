@@ -10,7 +10,7 @@
 
 <mat-menu #menu="matMenu" class="menu-container">
   <div class="sub-menu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="exportSave()">
       <mat-icon>download</mat-icon>
       <span>Export</span>
     </button>

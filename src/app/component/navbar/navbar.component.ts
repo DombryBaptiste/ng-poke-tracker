@@ -4,6 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from '@angular/material/button';
 import { ListPokemonComponent } from "../list-pokemon/list-pokemon.component";
+import { PokemonOwnedService } from "../../Services/pokemonOwned.service";
 
 @Component({
   selector: "app-navbar",
@@ -12,4 +13,12 @@ import { ListPokemonComponent } from "../list-pokemon/list-pokemon.component";
   templateUrl: "navbar.component.html",
   styleUrl: "navbar.component.css",
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  constructor(private pokemonOwnedService: PokemonOwnedService) { }
+
+  exportSave()
+  {
+    console.log("export")
+    this.pokemonOwnedService.downloadPokemonOwnedAsJSON();
+  }
+}
