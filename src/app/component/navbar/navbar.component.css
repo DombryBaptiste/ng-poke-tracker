@@ -1,8 +1,22 @@
+.navbar {
+  display: flex;
+}
+
+.navbar>button:first-child {
+  margin-right: auto;
+  visibility: hidden;
+}
+
+.navbar>button:last-child {
+  margin-left: auto;
+}
+
+
 h1 {
   font-family: "Pokemon Solid", sans-serif;
-  display: flex;
-  justify-content: center;
 }
+
+
 
 .onglets {
   display: flex;
