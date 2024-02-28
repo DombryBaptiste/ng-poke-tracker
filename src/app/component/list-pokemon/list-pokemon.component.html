@@ -13,7 +13,7 @@
   </mat-tab>
   <mat-tab [label]="'Female'">
     <div class="container-liste">
-      <div class="liste" *ngIf="femalePokemons">
+      <div class="sub-list" *ngIf="femalePokemons">
         <app-pokemon
           *ngFor="let pokemon of femalePokemons"
           [pokemon]="pokemon"
