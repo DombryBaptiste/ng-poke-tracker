@@ -20,6 +20,7 @@ export class ListPokemonComponent implements OnInit {
 
   malePokemons: Pokemon[];
   femalePokemons: Pokemon[];
+  alternatePokemons: Pokemon[];
 
   malePokemonsSub: Pokemon[][] = [];
   pokemonsWithoutMale: Pokemon[];
@@ -35,8 +36,12 @@ export class ListPokemonComponent implements OnInit {
       this.generationId,
       Gender.Female
     );
+    this.alternatePokemons = this.pokemonService.getPokemonsByGeneration(
+      this.generationId,
+      Gender.Alternate
+    )
     this.chunckPokemon();
-    console.log(this.malePokemonsSub);
+    console.log(this.alternatePokemons);
   }
 
   chunckPokemon() {

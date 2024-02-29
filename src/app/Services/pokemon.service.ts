@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subject, forkJoin, map, of } from "rxjs";
+import { Observable, Subject, catchError, forkJoin, map, of } from "rxjs";
 import { Pokemon } from "../Entity/Pokemon";
 import { LocalStorageService } from "./localStorage.service";
 import { Gender } from "../Enum/Gender";
@@ -58,17 +58,42 @@ export class PokemonService implements IPokemonService {
     "generation-i",
     "generation-ii",
   ];
+  private readonly pikachu_capId: number[] = [
+    10094, 10095, 10096, 10097, 10098, 10099, 10148, 10160,
+  ];
   private readonly gen3FormsId: number[] = [10001, 10002, 10003];
   private readonly gen4FormsId: number[] = [
     10034, 10035, 10004, 10005, 10039, 10040, 10008, 10009, 10010, 10011, 10012,
     10006,
   ];
+  private readonly gen4FormExclusionId: number[] = [10034, 10035, 10039, 10040];
   private readonly gen5FormsId: number[] = [
-    100068, 100069, 100070, 100071, 10072, 10073, 10016, 10019, 10020, 10021,
-    10024,
+    10068, 10069, 10070, 10071, 10072, 10073, 10016, 10019, 10020, 10021, 10024,
+  ];
+  private readonly gen5FormsExclusionId: number[] = [
+    10068, 10069, 10070, 10071, 10072, 10073,
   ];
 
-  private readonly pickachuCapId: number[] = [];
+  private readonly alternateListId: number[] = this.pikachu_capId.concat(
+    this.gen3FormsId,
+    this.gen4FormsId,
+    this.gen5FormsId
+  );
+
+  private readonly alternateExclusionListId: number[] =
+    this.gen4FormExclusionId.concat(this.gen5FormsExclusionId);
+
+  private readonly generationAlternate: { [key: number]: number[] } = {
+    1: this.pikachu_capId,
+    2: [],
+    3: this.gen3FormsId,
+    4: this.gen4FormsId,
+    5: this.gen5FormsId,
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+  };
 
   constructor(
     private http: HttpClient,
@@ -89,19 +114,37 @@ export class PokemonService implements IPokemonService {
             count: 0,
           }))
         );
-    }
-    return this.http
-      .get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
-      .pipe(
+    } else if (gender == Gender.Female) {
+      return this.http
+        .get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+        .pipe(
+          map((data: any) => ({
+            id: data.id,
+            name: data.name,
+            gender: gender,
+            sprite: this.getFemaleSprite(data, pokemonId),
+            addedDate: null,
+            count: 0,
+          }))
+        );
+    } else {
+      let request = "https://pokeapi.co/api/v2/";
+      if (this.alternateExclusionListId.includes(pokemonId)) {
+        request += "pokemon-form/" + pokemonId;
+      } else {
+        request += "pokemon/" + pokemonId;
+      }
+      return this.http.get<Pokemon>(request).pipe(
         map((data: any) => ({
           id: data.id,
           name: data.name,
           gender: gender,
-          sprite: this.getFemaleSprite(data, pokemonId),
+          sprite: this.getAlternateSprite(data, pokemonId),
           addedDate: null,
           count: 0,
         }))
       );
+    }
   }
 
   getPokemonsByGeneration(id: number, gender: Gender): Pokemon[] {
@@ -110,6 +153,10 @@ export class PokemonService implements IPokemonService {
       pokemonLocal = this.localstorageService.getData("ListAllMalePokemon");
     } else if (gender == Gender.Female) {
       pokemonLocal = this.localstorageService.getData("ListAllFemalePokemon");
+    } else {
+      pokemonLocal = this.localstorageService.getData(
+        "ListAllAlternatePokemon"
+      );
     }
     let pokemonList: Pokemon[] = [];
     if (pokemonLocal) {
@@ -121,8 +168,15 @@ export class PokemonService implements IPokemonService {
     let endPokemonId = this.GenerationRange[id][1];
 
     pokemonList.forEach((pokemon) => {
-      if (pokemon.id >= startPokemonId && pokemon.id <= endPokemonId) {
-        pokemons.push(pokemon);
+      if (gender == Gender.Male || gender == Gender.Female) {
+        if (pokemon.id >= startPokemonId && pokemon.id <= endPokemonId) {
+          pokemons.push(pokemon);
+        }
+      } else {
+        let a = this.generationAlternate[id];
+        if (a.includes(pokemon.id)) {
+          pokemons.push(pokemon);
+        }
       }
     });
     return pokemons;
@@ -230,6 +284,13 @@ export class PokemonService implements IPokemonService {
     return null;
   }
 
+  getAlternateSprite(data: any, idPokemon: number) {
+    if (this.alternateExclusionListId.includes(idPokemon)) {
+      return data.sprites.front_default;
+    }
+    return data.sprites.other.home.front_default;
+  }
+
   hasOlderSprite(idPokemon: number): boolean {
     if (
       idPokemon >= this.pokemonIdInGen8_9[0] &&
@@ -249,6 +310,9 @@ export class PokemonService implements IPokemonService {
     const pokemonOwned = this.localstorageService.getData("pokemonOwned");
     const listAllFemalePokemon = this.localstorageService.getData(
       "ListAllFemalePokemon"
+    );
+    const listAllAlternatePokemon = this.localstorageService.getData(
+      "ListAllAlternatePokemon"
     );
 
     if (listAllMalePokemon == null) {
@@ -282,6 +346,19 @@ export class PokemonService implements IPokemonService {
         )
       );
     }
+    if (listAllAlternatePokemon == null) {
+      observables.push(
+        this.getAllPokemon(Gender.Alternate).pipe(
+          map((pokemons) => {
+            console.log(pokemons);
+            this.localstorageService.saveData(
+              "ListAllAlternatePokemon",
+              JSON.stringify(pokemons)
+            );
+          })
+        )
+      );
+    }
 
     forkJoin(observables).subscribe(() => {
       initCompleteSubject.next();
@@ -296,9 +373,14 @@ export class PokemonService implements IPokemonService {
     let endPokemonId: number = this.InitPokemonRange.endId;
 
     let observables: Observable<Pokemon>[] = [];
-
-    for (let i = startPokemonId; i <= endPokemonId; i++) {
-      observables.push(this.getPokemonById(i, gender));
+    if (gender != Gender.Alternate) {
+      for (let i = startPokemonId; i <= endPokemonId; i++) {
+        observables.push(this.getPokemonById(i, gender));
+      }
+    } else {
+      this.alternateListId.forEach((id) => {
+        observables.push(this.getPokemonById(id, gender));
+      });
     }
 
     return forkJoin(observables).pipe(

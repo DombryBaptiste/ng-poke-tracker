@@ -21,4 +21,14 @@
       </div>
     </div>
   </mat-tab>
+  <mat-tab [label]="'Alternate'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="alternatePokemons">
+        <app-pokemon
+          *ngFor="let pokemon of alternatePokemons"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
+    </div>
+  </mat-tab>
 </mat-tab-group>
