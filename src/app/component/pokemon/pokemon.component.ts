@@ -44,7 +44,7 @@ export class PokemonComponent implements OnInit {
     if (this.hasPokemonUser()) {
       this.pokemonsOwned = this.pokemonsOwned.filter(
         (pokemon) =>
-          pokemon.id !== this.pokemon.id &&
+          pokemon.id !== this.pokemon.id ||
           pokemon.gender !== this.pokemon.gender
       );
     } else {
