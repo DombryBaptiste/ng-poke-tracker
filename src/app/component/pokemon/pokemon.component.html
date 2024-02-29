@@ -5,7 +5,11 @@
     [src]="pokemon.sprite"
     (mouseenter)="showPokemonName()"
     (mouseleave)="hidePokemonName()"
-    (click)="clickInterationPokemon()"
+    (click)="addPokemon()"
+    (contextmenu)="supressPokemon($event)"
   />
   <span *ngIf="showName" class="name">{{ pokemon.name }}</span>
+  <span *ngIf="pokemonOwn && pokemonOwn.count > 1" class="count">{{
+    pokemonOwn.count
+  }}</span>
 </div>

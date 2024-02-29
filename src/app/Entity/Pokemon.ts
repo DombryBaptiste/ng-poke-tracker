@@ -6,4 +6,5 @@ export class Pokemon {
   gender: Gender;
   sprite: string;
   addedDate: Date | null | string;
+  count: number;
 }

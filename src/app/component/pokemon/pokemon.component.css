@@ -32,3 +32,17 @@
   position: relative;
   display: flex;
 }
+
+.count {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  background-color: black;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 15px;
+  font-size: 0.8em;
+  transform: translate(400%, 400%);
+}

@@ -86,6 +86,7 @@ export class PokemonService implements IPokemonService {
             gender: gender,
             sprite: this.getMaleSprite(data, pokemonId),
             addedDate: null,
+            count: 0,
           }))
         );
     }
@@ -98,6 +99,7 @@ export class PokemonService implements IPokemonService {
           gender: gender,
           sprite: this.getFemaleSprite(data, pokemonId),
           addedDate: null,
+          count: 0,
         }))
       );
   }
@@ -117,7 +119,6 @@ export class PokemonService implements IPokemonService {
     let pokemons: Pokemon[] = [];
     let startPokemonId = this.GenerationRange[id][0];
     let endPokemonId = this.GenerationRange[id][1];
-    
 
     pokemonList.forEach((pokemon) => {
       if (pokemon.id >= startPokemonId && pokemon.id <= endPokemonId) {
@@ -211,16 +212,21 @@ export class PokemonService implements IPokemonService {
     const hasFemaleSprite = this.hasFemaleSprite(idPokemon);
     const hasGenderDiff = this.hasGenderDiff(data);
 
-
-    if (hasFemaleSprite && hasGenderDiff && this.hasFrontFemaleSprite(data, generation, game)) {
+    if (
+      hasFemaleSprite &&
+      hasGenderDiff &&
+      this.hasFrontFemaleSprite(data, generation, game)
+    ) {
       return sprites.front_female ?? sprites.front_default;
     }
-  
+
     if (hasGenderDiff) {
-      const spriteType = this.hasTransparentSprite(idPokemon) ? 'front_default' : 'front_transparent';
+      const spriteType = this.hasTransparentSprite(idPokemon)
+        ? "front_default"
+        : "front_transparent";
       return sprites[spriteType];
     }
-  
+
     return null;
   }
 
