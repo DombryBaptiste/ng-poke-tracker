@@ -6,6 +6,11 @@
   filter: brightness(10%);
 }
 
+.img {
+  width: 96px;
+  height: 96px;
+}
+
 .showed,
 .hidden {
   transition: filter 0.1s ease;
