@@ -48,6 +48,7 @@ export class PokemonComponent implements OnInit {
           pokemon.gender !== this.pokemon.gender
       );
     } else {
+      this.pokemon.addedDate = new Date().toLocaleString();
       this.pokemonsOwned.push(this.pokemon);
     }
     this.pokemonOwnedService.updatePokemonsOwned(this.pokemonsOwned);

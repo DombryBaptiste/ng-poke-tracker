@@ -85,6 +85,7 @@ export class PokemonService implements IPokemonService {
             name: data.name,
             gender: gender,
             sprite: this.getMaleSprite(data, pokemonId),
+            addedDate: null,
           }))
         );
     }
@@ -96,6 +97,7 @@ export class PokemonService implements IPokemonService {
           name: data.name,
           gender: gender,
           sprite: this.getFemaleSprite(data, pokemonId),
+          addedDate: null,
         }))
       );
   }
