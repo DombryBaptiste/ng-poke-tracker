@@ -11,21 +11,107 @@
       </div>
     </div>
   </mat-tab>
-  <mat-tab [label]="'Female'">
+  <mat-tab [label]="'Female'" *ngIf="femalePokemons.length != 0">
     <div class="container-liste">
-      <div class="sub-list" *ngIf="femalePokemons">
+      <div class="liste" *ngIf="femalePokemons">
+        <div class="sub-list" *ngFor="let sublist of femalePokemonSub">
+          <app-pokemon
+            *ngFor="let pokemon of sublist"
+            [pokemon]="pokemon"
+          ></app-pokemon>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="alternatePokemons.length != 0" [label]="'Alternate'">
+    <div class="container-liste">
+      <div class="liste" *ngIf="alternatePokemons">
+        <div class="sub-list" *ngFor="let sublist of alternatePokemonsSub">
+          <app-pokemon
+            *ngFor="let pokemon of sublist"
+            [pokemon]="pokemon"
+          ></app-pokemon>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="generationId == 1" [label]="'Pikachu Cap'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="pikachuCap">
         <app-pokemon
-          *ngFor="let pokemon of femalePokemons"
+          *ngFor="let pokemon of pikachuCap"
           [pokemon]="pokemon"
         ></app-pokemon>
       </div>
     </div>
   </mat-tab>
-  <mat-tab [label]="'Alternate'">
+  <mat-tab *ngIf="generationId == 2" [label]="'Unown'">
     <div class="container-liste">
-      <div class="sub-list" *ngIf="alternatePokemons">
+      <div class="sub-list" *ngIf="unown">
         <app-pokemon
-          *ngFor="let pokemon of alternatePokemons"
+          *ngFor="let pokemon of unown"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="generationId == 6" [label]="'Vivillon'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="vivillon">
+        <app-pokemon
+          *ngFor="let pokemon of vivillon"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="regionalForms.length != 0" [label]="'Regional Form'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="regionalForms">
+        <app-pokemon
+          *ngFor="let pokemon of regionalForms"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="generationId == 7" [label]="'Unknown Region'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="unknownRegion">
+        <app-pokemon
+          *ngFor="let pokemon of unknownRegion"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="generationId == 8" [label]="'Gigantamax'">
+    <div class="container-liste">
+      <div class="liste" *ngIf="gmax">
+        <div class="sub-list" *ngFor="let sublist of gmaxSub">
+          <app-pokemon
+            *ngFor="let pokemon of sublist"
+            [pokemon]="pokemon"
+          ></app-pokemon>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="generationId == 8" [label]="'Hisui'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="hisui">
+        <app-pokemon
+          *ngFor="let pokemon of hisui"
+          [pokemon]="pokemon"
+        ></app-pokemon>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="generationId == 8" [label]="'Hisui Regional'">
+    <div class="container-liste">
+      <div class="sub-list" *ngIf="hisuiRegional">
+        <app-pokemon
+          *ngFor="let pokemon of hisuiRegional"
           [pokemon]="pokemon"
         ></app-pokemon>
       </div>

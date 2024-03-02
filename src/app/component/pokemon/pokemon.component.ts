@@ -27,8 +27,8 @@ export class PokemonComponent implements OnInit {
 
   hasPokemonUser() {
     const foundPokemon = this.pokemonsOwned.find(
-      (pkm: Pokemon) =>
-        pkm.id === this.pokemon.id && pkm.gender == this.pokemon.gender
+      (pkm: Pokemon) => pkm == this.pokemon
+      //pkm.id === this.pokemon.id && pkm.gender == this.pokemon.gender && pkm.name == this.pokemon.name
     );
     this.pokemonOwn = foundPokemon;
     return foundPokemon;

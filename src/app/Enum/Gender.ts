@@ -1,5 +1,7 @@
 export enum Gender {
-    Female,
-    Male,
-    Alternate
+  Female,
+  Male,
+  Alternate,
+  Regional,
+  RegionalHisui,
 }

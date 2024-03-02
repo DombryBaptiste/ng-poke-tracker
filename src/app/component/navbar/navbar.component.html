@@ -16,7 +16,12 @@
     </button>
   </div>
   <div>
-    <input type="file" (change)="importSave($event)" style="display: none;" #fileInput>
+    <input
+      type="file"
+      (change)="importSave($event)"
+      style="display: none"
+      #fileInput
+    />
     <button mat-menu-item (click)="fileInput.click()">
       <mat-icon>upload</mat-icon>
       <span>Import</span>
@@ -40,16 +45,16 @@
   <mat-tab label="Gen. 5">
     <app-list-pokemon [generationId]="5"></app-list-pokemon>
   </mat-tab>
-  <!-- <mat-tab label="Gen. 6">
-        <app-list-pokemon 
-            [generationId]="6"
-        ></app-list-pokemon>
-    </mat-tab>
-    <mat-tab label="Gen. 7">
-        <app-list-pokemon 
-            [generationId]="7"
-        ></app-list-pokemon>
-    </mat-tab>
-    <mat-tab label="Gen. 8"></mat-tab>
-    <mat-tab label="Gen. 9"></mat-tab> -->
+  <mat-tab label="Gen. 6">
+    <app-list-pokemon [generationId]="6"></app-list-pokemon>
+  </mat-tab>
+  <mat-tab label="Gen. 7">
+    <app-list-pokemon [generationId]="7"></app-list-pokemon>
+  </mat-tab>
+  <mat-tab label="Gen. 8">
+    <app-list-pokemon [generationId]="8"></app-list-pokemon>
+  </mat-tab>
+  <mat-tab label="Gen. 9">
+    <app-list-pokemon [generationId]="9"></app-list-pokemon>
+  </mat-tab>
 </mat-tab-group>
