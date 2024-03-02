@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
@@ -6,6 +6,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { ListPokemonComponent } from "../list-pokemon/list-pokemon.component";
 import { PokemonOwnedService } from "../../Services/pokemonOwned.service";
 import { DialogService } from "../../Services/dialog.service";
+import { PokemonService } from "../../Services/pokemon.service";
 
 @Component({
   selector: "app-navbar",
@@ -20,11 +21,21 @@ import { DialogService } from "../../Services/dialog.service";
   templateUrl: "navbar.component.html",
   styleUrl: "navbar.component.css",
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  ownPokemon: number = 0;
+
   constructor(
     private pokemonOwnedService: PokemonOwnedService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private pokemonService: PokemonService,
   ) {}
+
+  ngOnInit(): void {
+    this.ownPokemon = this.pokemonOwnedService.getNumberPokemonOwned();
+    this.pokemonOwnedService.pokemonsOwned$.subscribe((pokemons) => {
+      this.ownPokemon = pokemons.length;
+    });
+  }
 
   exportSave() {
     this.pokemonOwnedService.downloadPokemonOwnedAsJSON();

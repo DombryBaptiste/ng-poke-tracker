@@ -107,9 +107,11 @@ export class ListPokemonComponent implements OnInit {
     for (let i = 0; i < this.femalePokemons.length; i += chunkSize) {
       this.femalePokemonSub.push(this.femalePokemons.slice(i, i + chunkSize));
     }
-
-    for (let i = 0; i < this.gmax.length; i += chunkSize) {
-      this.gmaxSub.push(this.gmax.slice(i, i + chunkSize));
+    if(this.gmax)
+    {
+      for (let i = 0; i < this.gmax.length; i += chunkSize) {
+        this.gmaxSub.push(this.gmax.slice(i, i + chunkSize));
+      }
     }
   }
 

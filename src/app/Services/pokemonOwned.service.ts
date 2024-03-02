@@ -47,5 +47,9 @@ export class PokemonOwnedService {
     const date = new Date();
     saveAs(blob, `pokemonOwned${date.toLocaleDateString()}.json`);
   }
+
+  getNumberPokemonOwned(): number {
+    return this.pokemonsOwnedSubject.getValue().length;
+  }
   
 }

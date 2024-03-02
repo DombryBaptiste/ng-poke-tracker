@@ -1,12 +1,15 @@
 <div class="navbar">
-  <button mat-icon-button>
+  <button class="b" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
+    <span class="compteur-pokemon">{{ownPokemon}} / 1 359</span>
   <h1>PokéTracker</h1>
-  <button mat-icon-button [mat-menu-trigger-for]="menu">
+    <span class="compteur-pokemon">{{ownPokemon}} / 1 359</span>
+  <button class="b" mat-icon-button [mat-menu-trigger-for]="menu">
     <mat-icon>menu</mat-icon>
   </button>
 </div>
+
 
 <mat-menu #menu="matMenu" class="menu-container">
   <div class="sub-menu">
@@ -29,7 +32,7 @@
   </div>
 </mat-menu>
 
-<mat-tab-group>
+<mat-tab-group class="mattab1">
   <mat-tab label="Gen. 1">
     <app-list-pokemon [generationId]="1"></app-list-pokemon>
   </mat-tab>

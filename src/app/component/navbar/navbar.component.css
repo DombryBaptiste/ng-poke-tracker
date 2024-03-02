@@ -1,5 +1,21 @@
 .navbar {
   display: flex;
+  background-color: #0d1929;
+  border-bottom: solid;
+  border-bottom-color: #154073;
+  align-items: center;
+}
+
+.compteur-pokemon:nth-child(2) {
+  margin-right: auto;
+  visibility: hidden;
+} 
+
+.compteur-pokemon:nth-last-child(2) {
+  font-weight: bold;
+  margin-left: auto;
+  text-align: center;
+  font-size: 2em;
 }
 
 .navbar>button:first-child {
@@ -10,6 +26,8 @@
 .navbar>button:last-child {
   margin-left: auto;
 }
+
+
 
 
 h1 {
@@ -28,3 +46,12 @@ h1 {
   font-size: 2em;
   font-weight: bold;
 }
+
+/* .compteur
+{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 3em;
+  color: darkgrey;
+} */

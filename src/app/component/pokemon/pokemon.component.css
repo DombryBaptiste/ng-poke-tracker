@@ -18,7 +18,7 @@
 
 .name {
   position: absolute;
-  bottom: -20px;
+  bottom: -25px;
   left: 50%;
   transform: translateX(-50%);
   background: #000;
@@ -26,6 +26,9 @@
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   z-index: 10;
+  text-align: center;
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  overflow: hidden; /* Cache tout le contenu qui dépasse */
 }
 
 .pokemon {
