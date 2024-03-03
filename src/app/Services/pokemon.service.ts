@@ -172,10 +172,6 @@ export class PokemonService implements IPokemonService {
         const pokemonFiltered = pokemonAlternate.filter(
           (pokemon) => pokemon.gen === id
         );
-        if (id == 6 && gender == Gender.Alternate) {
-          console.log(pokemonAlternate);
-          console.log(pokemonFiltered);
-        }
         let pokemons: Pokemon[] = [];
 
         pokemonList.forEach((pkm: Pokemon) => {
@@ -186,13 +182,9 @@ export class PokemonService implements IPokemonService {
                 pokemonAlternate.form == pkm.form
             )
           ) {
-            if (id == 6 && gender == Gender.Alternate) {
-              console.log(pkm.form.toString());
-            }
             pokemons.push(pkm);
           }
         });
-        console.log(pokemons);
         return pokemons;
       })
     );
@@ -685,7 +677,6 @@ export class PokemonService implements IPokemonService {
   ): Observable<Pokemon> {
     let request = "https://pokeapi.co/api/v2/";
     if (pokemon.form == FormEnum.Form) {
-      console.log(pokemon);
       request += "pokemon-form/" + pokemon.id;
     } else {
       request += "pokemon/" + pokemon.id;
